@@ -6,6 +6,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
+    "react-redux-form": "^1.16.13",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0"
   },
@@ -23,5 +24,18 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/groverniharika25/confusion-ReactSample.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/groverniharika25/confusion-ReactSample/issues"
+  },
+  "homepage": "https://github.com/groverniharika25/confusion-ReactSample#readme"
 }
