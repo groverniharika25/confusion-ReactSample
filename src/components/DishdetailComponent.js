@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-import {Media} from 'reactstrap';
 import {Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem} from 'reactstrap';
 import {Link} from "react-router-dom";
 import {Button, Modal, ModalHeader, ModalBody, Label, Row, Col} from "reactstrap";
@@ -7,7 +6,7 @@ import {Control, LocalForm, Errors} from "react-redux-form";
 
 
 
-function RenderComments({comments}){
+function RenderComments({comments, addComment, dishId}) {
     const comment_blocks = comments.map((com)=>{
         return(
             <blockquote key={com.id} className="blockquote">
@@ -23,16 +22,14 @@ function RenderComments({comments}){
             <ul className="list-unstyled">
                 {comment_blocks}
             </ul>
-            <CommentForm />
+            <CommentForm dishId={dishId} addComment={addComment} />
         </div>
     );
 }
 
 function RenderDish({dish, comments}){
-
     if(dish != null){
-
-        return(
+         return(
             <div className="row">
                 <div className="col-md-5 m-1">
                     <Card>
@@ -43,7 +40,6 @@ function RenderDish({dish, comments}){
                         </CardBody>
                     </Card>
                 </div>
-                <RenderComments comments={comments} />
             </div>
         );
 
@@ -67,7 +63,12 @@ function DishDetail(props){
                     <hr />
                 </div>
             </div>
-            <RenderDish dish={props.dish} comments={props.comments} />
+            <div className="row">
+                <RenderDish dish={props.dish} comments={props.comments} />
+                <RenderComments comments={props.comments}
+                                addComment={props.addComment}
+                                dishId={props.dish.id}/>
+            </div>
         </div>
     );
 }
@@ -89,8 +90,7 @@ class CommentForm extends Component{
 
     handleSubmitComment(values){
         console.log("Current State is : "+JSON.stringify(values));
-        alert("Current State is : "+JSON.stringify(values));
-        this.toggleModal();
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
 
     toggleModal(){
@@ -101,7 +101,6 @@ class CommentForm extends Component{
         return(
             <>
                 <Button className="btn btn-default" onClick={this.toggleModal}><span className="fa fa-pencil"></span> Submit Comment</Button>
-
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
                     <ModalBody>
